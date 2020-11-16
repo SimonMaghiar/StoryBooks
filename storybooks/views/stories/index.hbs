@@ -1,0 +1,29 @@
+<h1>Stories</h1>
+<div class="row">
+    {{#each stories}}
+        <div class="col s12 m4">
+            <div class="card">
+                <div class="card-image">
+                {{{editIcon user ../user _id}}}  {{! the first parameter 'user' refers to the user of the particular story,
+                                                    since we are within #each loop, and ../user means that we step out 
+                                                    of the #each loop to the global scope so that we are refering to the 
+                                                    user that is logged in}}
+                </div>
+                <div class="card-content center-align">
+                    <h5>{{title}}</h5>
+                    <p>{{stripTags (truncate body 300)}}</p>  {{! First we truncate the body and then we remove the html tags}}
+                    <br>                        {{!300 is the variable passed to the truncate function ..it's the len parameter}}
+                    <div class="chip">
+                        <img src="{{user.image}}" alt="">
+                        <a href="/stories/user/{{user._id}}">{{user.displayName}}</a>
+                    </div>
+                </div>
+                <div class="card-action center-align">
+                    <a href="/stories/{{_id}}" class ="btn grey">Read More</a>
+                </div>
+            </div>
+        </div>
+    {{else}}
+        <p>No stories to display</p>
+    {{/each}}
+</div>
